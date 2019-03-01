@@ -12,9 +12,10 @@ class UniqueNumberGenerator {
     private static final Random random = new Random();
 
     static List<Integer> generate() {
-        return Stream.generate(() -> random.nextInt(BOUND) + 1)
+        return random.ints(1,10)
                 .distinct()
                 .limit(4)
+                .boxed()
                 .collect(toList());
     }
 }
