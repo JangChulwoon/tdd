@@ -39,8 +39,8 @@ public class BaseBallTest {
 
         GameResult gameResult = baseBallPlayer.play(1, 2, 3, 4);
 
-        Assert.assertThat(gameResult.getStrikeCount(), is(3));
-        Assert.assertThat(gameResult.getBallCount(), is(1));
+        Assert.assertThat(gameResult.getStrikeCount(), is(3L));
+        Assert.assertThat(gameResult.getBallCount(), is(1L));
     }
 
 

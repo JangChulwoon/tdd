@@ -1,17 +1,14 @@
 package tdd.basball;
 
-import java.util.List;
+import java.util.Arrays;
 
 class BaseBallPlayer {
-    GameResult play(int ...numbers) {
-        List<Integer> randomNumbers = UniqueNumberGenerator.generate();
-        int count = 0;
-        for(int number : numbers){
-            if(randomNumbers.contains(number)){
-                count ++;
-            }
-        }
-        return new GameResult(3, 4 - count, count, count == 4);
+    GameResult play(int... numbers) {
+        GameResult gameResult = GameResult.init();
+        long matchCount = Arrays.stream(numbers)
+                .filter(UniqueNumberGenerator.generate()::contains)
+                .count();
+        return gameResult.makeResult(matchCount);
     }
 
 }
