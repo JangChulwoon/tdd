@@ -3,8 +3,7 @@ package tdd.basball;
 import java.util.List;
 
 class BaseBallPlayer {
-    // todo 중복 체크
-    int play(int ...numbers) {
+    GameResult play(int ...numbers) {
         List<Integer> randomNumbers = UniqueNumberGenerator.generate();
         int count = 0;
         for(int number : numbers){
@@ -12,7 +11,7 @@ class BaseBallPlayer {
                 count ++;
             }
         }
-        return count;
+        return new GameResult(3, 4 - count, count, count == 4);
     }
 
 }

@@ -23,7 +23,8 @@ public class BaseBallTest {
 
     4개의 숫자를 받아서, 4번 안에 일치하면 ok
      1. 난수 생성기 (중복 x )
-     2. 숫자가 일치한 수만큼 count 를 반환 Todo 성공 여부 / count 수 를 반환하는 wrapper 필요할듯
+     2. 숫자가 일치한 수만큼 count 를 반환
+     3  성공 여부 / count 수 를 반환해야한다.
      */
 
     @Before
@@ -36,9 +37,10 @@ public class BaseBallTest {
         when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
-        int matchCount = baseBallPlayer.play(1, 2, 3, 4);
+        GameResult gameResult = baseBallPlayer.play(1, 2, 3, 4);
 
-        Assert.assertThat(matchCount, is(3));
+        Assert.assertThat(gameResult.getStrikeCount(), is(3));
+        Assert.assertThat(gameResult.getBallCount(), is(1));
     }
 
 
