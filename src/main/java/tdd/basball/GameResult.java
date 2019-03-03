@@ -1,25 +1,21 @@
 package tdd.basball;
 
 class GameResult {
-    //private static final int GAME_COUNT = 9;
     private long chanceCount;
     private long ballCount;
     private long strikeCount;
 
-    public static GameResult makeResult(long strikeCount, long ballCount){
+
+    public static GameResult makeResult(long strikeCount, long ballCount, int chanceCount) {
         GameResult result = new GameResult();
 
-       /* TODO chance count 를 어떻게 구현할래 ?
-        if(result.chanceCount == 0) {
-            throw new RuntimeException("Don't have chance !!");
-        }
-*/
         result.strikeCount = strikeCount;
         result.ballCount = ballCount;
-        result.chanceCount --;
+        result.chanceCount = chanceCount;
 
         return result;
     }
+
     private GameResult() {
     }
 

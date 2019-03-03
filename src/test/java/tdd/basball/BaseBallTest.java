@@ -19,14 +19,14 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @PrepareForTest(UniqueNumberGenerator.class)
 public class BaseBallTest {
     /*
-    AssertJ 도 써보고 싶은데 ..
+    AssertJ 도 써보고 싶은데 .. (나중에...)
 
     4개의 숫자를 받아서, 4번 안에 일치하면 ok
      ~1. 난수 생성기 (중복 x )~
      ~2. 숫자가 일치한 수만큼 count 를 반환~
      ~3  성공 여부 / count 수 를 반환해야한다.~
      ~4. 위치가 틀리면?~
-     5. 게임은 총 9 번 까지 할 수 있도록
+     5. ~게임은 총 9 번 까지 할 수 있도록~
      */
 
     @Test
@@ -39,6 +39,8 @@ public class BaseBallTest {
 
         Assert.assertThat(gameResult.getStrikeCount(), is(0L));
         Assert.assertThat(gameResult.getBallCount(), is(3L));
+        Assert.assertThat(gameResult.getChanceCount(), is(8L));
+
     }
 
     @Test(expected = RuntimeException.class)
@@ -47,9 +49,8 @@ public class BaseBallTest {
         when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
-        Stream.iterate(0,i-> i+1).limit(10).map(i-> baseBallPlayer.play(Arrays.asList(0,2,3,5))).findAny();
+        Stream.iterate(0,i-> i+1).limit(11).map(i-> baseBallPlayer.play(Arrays.asList(0,2,3,5))).count();
     }
-
 
 
     // 예외 상황에 대한 TC
