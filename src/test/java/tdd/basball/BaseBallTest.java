@@ -25,11 +25,8 @@ public class BaseBallTest {
      1. 난수 생성기 (중복 x )
      2. 숫자가 일치한 수만큼 count 를 반환
      3  성공 여부 / count 수 를 반환해야한다.
+     0. 위치가 틀리면?
      */
-
-    @Before
-    public void setup() {
-    }
 
     @Test
     public void shouldSucceedInGame() {
@@ -39,8 +36,8 @@ public class BaseBallTest {
 
         GameResult gameResult = baseBallPlayer.play(1, 2, 3, 4);
 
-        Assert.assertThat(gameResult.getStrikeCount(), is(3L));
-        Assert.assertThat(gameResult.getBallCount(), is(1L));
+        Assert.assertThat(gameResult.getStrikeCount(), is(0L));
+        Assert.assertThat(gameResult.getBallCount(), is(3L));
     }
 
 

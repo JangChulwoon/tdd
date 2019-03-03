@@ -1,7 +1,7 @@
 package tdd.basball;
 
 class GameResult {
-    private static final int NUMBER_COUNT = 4;
+    //private static final int GAME_COUNT = 9;
     private long chanceCount;
     private long ballCount;
     private long strikeCount;
@@ -14,25 +14,21 @@ class GameResult {
         return result;
     }
 
-    public GameResult makeResult(long matchCount){
-        if(this.chanceCount == 0) {
+    public static GameResult makeResult(long strikeCount, long ballCount){
+        GameResult result = new GameResult();
+
+       /* TODO chance count 를 어떻게 구현할래 ?
+        if(result.chanceCount == 0) {
             throw new RuntimeException("Don't have chance !!");
         }
+*/
+        result.strikeCount = strikeCount;
+        result.ballCount = ballCount;
+        result.chanceCount --;
 
-        this.strikeCount = matchCount;
-        this.ballCount = NUMBER_COUNT - matchCount;
-        this.chanceCount --;
-
-        return new GameResult(chanceCount, ballCount, strikeCount, strikeCount == 4);
+        return result;
     }
     private GameResult() {
-    }
-
-    private GameResult(long chanceCount, long ballCount, long strikeCount, boolean isSuccess) {
-        this.chanceCount = chanceCount;
-        this.ballCount = ballCount;
-        this.strikeCount = strikeCount;
-        this.isSuccess = isSuccess;
     }
 
     public long getChanceCount() {
