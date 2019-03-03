@@ -10,6 +10,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -24,8 +25,8 @@ public class BaseBallTest {
      ~1. 난수 생성기 (중복 x )~
      ~2. 숫자가 일치한 수만큼 count 를 반환~
      ~3  성공 여부 / count 수 를 반환해야한다.~
-     ~0. 위치가 틀리면?~
-
+     ~4. 위치가 틀리면?~
+     5. 게임은 총 9 번 까지 할 수 있도록
      */
 
     @Test
@@ -39,6 +40,16 @@ public class BaseBallTest {
         Assert.assertThat(gameResult.getStrikeCount(), is(0L));
         Assert.assertThat(gameResult.getBallCount(), is(3L));
     }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldBeGameOver() {
+        PowerMockito.mockStatic(UniqueNumberGenerator.class);
+        when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
+        BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
+
+        Stream.iterate(0,i-> i+1).limit(10).map(i-> baseBallPlayer.play(Arrays.asList(0,2,3,5))).findAny();
+    }
+
 
 
     // 예외 상황에 대한 TC
