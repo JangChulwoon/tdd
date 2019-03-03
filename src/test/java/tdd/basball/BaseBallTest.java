@@ -26,17 +26,20 @@ public class BaseBallTest {
      ~2. 숫자가 일치한 수만큼 count 를 반환~
      ~3  성공 여부 / count 수 를 반환해야한다.~
      ~4. 위치가 틀리면?~
-     5. ~게임은 총 9 번 까지 할 수 있도록~
+     ~5. 게임은 총 9 번 까지 할 수 있도록~
      */
 
     @Test
     public void shouldSucceedInGame() {
+        // given
         PowerMockito.mockStatic(UniqueNumberGenerator.class);
         when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
+        //when
         GameResult gameResult = baseBallPlayer.play(Arrays.asList(0,2,3,5));
 
+        // than
         Assert.assertThat(gameResult.getStrikeCount(), is(0L));
         Assert.assertThat(gameResult.getBallCount(), is(3L));
         Assert.assertThat(gameResult.getChanceCount(), is(8L));
@@ -45,35 +48,51 @@ public class BaseBallTest {
 
     @Test(expected = RuntimeException.class)
     public void shouldBeGameOver() {
+        // given
         PowerMockito.mockStatic(UniqueNumberGenerator.class);
         when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
+        // when
         Stream.iterate(0,i-> i+1).limit(11).map(i-> baseBallPlayer.play(Arrays.asList(0,2,3,5))).count();
+
+        // then "exception"
     }
 
 
     // 예외 상황에 대한 TC
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowException() {
+        // given
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
+        // when
         baseBallPlayer.play(Arrays.asList(0,3,3,4,4,1));
+
+        // than "exception"
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalExceptionForOverLength() {
+        // given
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
+        // when
         baseBallPlayer.play(Arrays.asList(0,2,3,5,6));
+
+        // then "exception"
     }
 
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionForDuplicatedParameter() {
+        // given
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
+        // when
         baseBallPlayer.play(Arrays.asList(0,3,3,4));
+
+        // than "exception"
     }
 
 
