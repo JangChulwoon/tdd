@@ -1,7 +1,6 @@
 package tdd.basball;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -22,10 +21,11 @@ public class BaseBallTest {
     AssertJ 도 써보고 싶은데 ..
 
     4개의 숫자를 받아서, 4번 안에 일치하면 ok
-     1. 난수 생성기 (중복 x )
-     2. 숫자가 일치한 수만큼 count 를 반환
-     3  성공 여부 / count 수 를 반환해야한다.
-     0. 위치가 틀리면?
+     ~1. 난수 생성기 (중복 x )~
+     ~2. 숫자가 일치한 수만큼 count 를 반환~
+     ~3  성공 여부 / count 수 를 반환해야한다.~
+     ~0. 위치가 틀리면?~
+
      */
 
     @Test
