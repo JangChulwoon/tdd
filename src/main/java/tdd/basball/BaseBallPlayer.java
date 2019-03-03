@@ -3,23 +3,34 @@ package tdd.basball;
 import java.util.List;
 
 class BaseBallPlayer {
-    GameResult play(int... numbers) {
-        List<Integer> list =  UniqueNumberGenerator.generate();
+
+    public static final int BALL_LENGTH = 4;
+
+    GameResult play(List numbers) {
+
+        if (invalidNumber(numbers)) {
+            throw new IllegalArgumentException(String.format("중복된 숫자 및 길이가 맞지 않습니다. : %s", numbers));
+        }
+
+        List<Integer> list = UniqueNumberGenerator.generate();
         int strike = 0;
         int ball = 0;
 
-        // todo 같은 숫자를 넣을 수 있나 ?
-        for(int i = 0; i < numbers.length; ++i){
-            if(numbers[i] == list.get(i)){
-                strike ++;
+        for (int i = 0; i < numbers.size(); ++i) {
+            if (numbers.get(i) == list.get(i)) {
+                strike++;
                 continue;
             }
 
-            if(list.contains(numbers[i])){
-                ball ++;
+            if (list.contains(numbers.get(i))) {
+                ball++;
             }
         }
 
-        return GameResult.makeResult(strike,ball);
+        return GameResult.makeResult(strike, ball);
+    }
+
+    private boolean invalidNumber(List numbers) {
+        return numbers.stream().distinct().count() != BALL_LENGTH || numbers.size() != BALL_LENGTH;
     }
 }

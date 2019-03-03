@@ -34,10 +34,34 @@ public class BaseBallTest {
         when(UniqueNumberGenerator.generate()).thenReturn(Arrays.asList(4, 3, 2, 0));
         BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
 
-        GameResult gameResult = baseBallPlayer.play(1, 2, 3, 4);
+        GameResult gameResult = baseBallPlayer.play(Arrays.asList(0,2,3,5));
 
         Assert.assertThat(gameResult.getStrikeCount(), is(0L));
         Assert.assertThat(gameResult.getBallCount(), is(3L));
+    }
+
+
+    // 예외 상황에 대한 TC
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowException() {
+        BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
+
+        baseBallPlayer.play(Arrays.asList(0,3,3,4,4,1));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalExceptionForOverLength() {
+        BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
+
+        baseBallPlayer.play(Arrays.asList(0,2,3,5,6));
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionForDuplicatedParameter() {
+        BaseBallPlayer baseBallPlayer = new BaseBallPlayer();
+
+        baseBallPlayer.play(Arrays.asList(0,3,3,4));
     }
 
 
