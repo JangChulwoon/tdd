@@ -6,14 +6,6 @@ class GameResult {
     private long ballCount;
     private long strikeCount;
 
-    private boolean isSuccess;
-
-    static GameResult init(){
-        GameResult result = new GameResult();
-        result.chanceCount = 4;
-        return result;
-    }
-
     public static GameResult makeResult(long strikeCount, long ballCount){
         GameResult result = new GameResult();
 
@@ -43,7 +35,4 @@ class GameResult {
         return strikeCount;
     }
 
-    public boolean isSuccess() {
-        return isSuccess;
-    }
 }
