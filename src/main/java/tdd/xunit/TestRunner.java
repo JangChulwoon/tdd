@@ -2,10 +2,14 @@ package tdd.xunit;
 
 
 import lombok.Getter;
-import tdd.xunit.exception.TestFailError;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/*
+ 고민거리
+ Runner 의 exception 과 testcase 의 Exception 을 어떻게 나눌 것인가 ?
+ */
 @Getter
 public class TestRunner {
     public static final String SETUP = "setup";
@@ -25,17 +29,11 @@ public class TestRunner {
             runSetup(targetObject);
             runTestMethod(targetObject);
             runTeardown(targetObject);
-        } catch (ReflectiveOperationException e) {
-            fail("fail reflection", e);
-        } finally {
             wasRun = true;
+        } catch (ReflectiveOperationException e) {
+            wasRun = false;
         }
     }
-
-    private void fail(String message, Throwable e) {
-        throw new TestFailError(message, e);
-    }
-
 
     private void runSetup(Object targetObject) throws ReflectiveOperationException {
         Method[] methods = targetClass.getMethods();
@@ -48,12 +46,18 @@ public class TestRunner {
         }
     }
 
-    private void runTestMethod(Object targetObject) throws ReflectiveOperationException {
+    private void runTestMethod(Object targetObject) {
         Method[] methods = targetClass.getDeclaredMethods();
         for (Method method : methods) {
             String methodName = method.getName();
             if (methodName.startsWith("test")) {
-                method.invoke(targetObject);
+                try {
+                    method.invoke(targetObject);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace(); // todo log 로 변경
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
                 runCount++;
             }
         }

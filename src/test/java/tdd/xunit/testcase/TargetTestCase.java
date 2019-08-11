@@ -1,4 +1,6 @@
-package tdd.xunit;
+package tdd.xunit.testcase;
+
+import tdd.xunit.TestCase;
 
 public class TargetTestCase extends TestCase {
 

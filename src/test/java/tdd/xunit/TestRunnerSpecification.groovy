@@ -1,6 +1,8 @@
 package tdd.xunit
 
 import spock.lang.Specification
+import tdd.xunit.testcase.FailTestCase
+import tdd.xunit.testcase.TargetTestCase
 
 class TestRunnerSpecification extends Specification {
 
@@ -28,6 +30,19 @@ class TestRunnerSpecification extends Specification {
         then:
         testRunner.wasRun
         testRunner.runCount == 1
+
+    }
+
+    def "테스트 실패"() {
+
+        def testRunner = new TestRunner(FailTestCase.class)
+
+        when:
+        testRunner.run()
+
+        then:
+        !testRunner.wasRun
+        testRunner.runCount == 0
 
     }
 
